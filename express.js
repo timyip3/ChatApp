@@ -12,6 +12,7 @@ server.listen(3000, () => {
 });
 
 app.use(express.static(__dirname + '/public'));
+app.use('/angular', express.static(__dirname + '/node_modules/angular'));
 
 // Body Parser
 var bodyParser = require('body-parser');

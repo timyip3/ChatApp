@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="messageApp">
 <head>
 
  <! — include bootstap and jquery cdn ->
@@ -10,23 +10,32 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
+<script src="/angular/angular.js"></script>
+<script src="app.js"></script>
 </head>
-<body>
+<body ng-controller="messageController">
 <div class="container">
  <br>
  <div class="jumbotron">
  <h1 class="display-4">Send Message</h1>
  <br>
- <input id = "name" class="form-control" placeholder="Name">
+ <input id = "name" class="form-control" placeholder="Name" ng-model="Message.name">
  <br>
- <textarea id = "message" class="form-control" placeholder="Your Message Here">
+ <textarea id = "message" class="form-control" placeholder="Your Message Here" ng-model="Message.message">
 </textarea>
  <br>
- <button id="send" class="btn btn-success">Send</button>
+ <button id="send" class="btn btn-success" ng-click="submit()">Send</button>
  </div>
  <div id="messages">
  
 </div>
+
+<ul>
+  <li ng-repeat="message in messages">
+	  <span>{{message.name}}</span>
+          <p>{{message.message}}</p>
+  </li> 
+</ul>
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
@@ -41,7 +50,7 @@
     
 function addMessages(message){
 var appendMsg = ' <p>'+  message.name+ ':' +  message.message + '</p>';
-$("#messages").append(appendMsg);
+//$("#messages").append(appendMsg);
   }
    
 function getMessages(){
@@ -51,7 +60,7 @@ function getMessages(){
  }
  
 function sendMessage(message){
-   $.post('http://localhost:3000/messages', message)
+   //$.post('http://localhost:3000/messages', message)
  }
 
 
